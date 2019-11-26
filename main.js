@@ -18,6 +18,8 @@
  * * Guarenteed to make you cry on every use.
 */
 
+'use strict';
+
 //! Initiation
 
 // constants
@@ -36,7 +38,6 @@ const Sequelize = require('sequelize');
 const HelpCommands = require('./commands/help.js');
 const DebugCommands = require('./commands/debug.js');
 const ModerationCommands = require('./commands/moderation.js')
-const ServerSettings = require('./commands/settings');
 
 const DatabaseModels = require('./database_models');
 
@@ -57,8 +58,16 @@ const ServerSettingsModel = sequelize.define('server_settings', DatabaseModels.S
 //! confirm ready event
 client.on('ready', () => {
     console.log('Ready!');
+
     Tags.sync({ force: true });
     ServerSettingsModel.sync({ force: true });
+
+    client.user.setPresence({
+        game: {
+            name: 'the barrage of pings',
+            type: 'LISTENING'
+        }
+    })
 });
 
 //! Listener
@@ -66,10 +75,11 @@ client.on('message', message => {
 
     // make sure other bots cannot interface
     if (message.author.bot) return;
-    
-    // get the settings of the server
-    ServerSettings.setup_database(message, ServerSettingsModel);
-    const PREFIX = ServerSettings.get_prefix(message, ServerSettingsModel);
+
+    // if it was a ping to the bot
+    if (message.content === '<@646581444637884435>') {
+        message.channel.send('do `*help` to start :c')
+    }
 
     // split up UIN into usable chunks
     if (message.content.startsWith(PREFIX)) {

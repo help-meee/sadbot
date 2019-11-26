@@ -1,0 +1,19 @@
+{
+  "name": "sadbot",
+  "version": "1.0.0",
+  "description": "The saddest Discord bot available. Guaranteed to make you cry every use.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/help-meee/sadbot.git"
+  },
+  "author": "helpme",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/help-meee/sadbot/issues"
+  },
+  "homepage": "https://github.com/help-meee/sadbot#readme"
+}

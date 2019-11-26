@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//// if (message.member.roles.has(adminrole.id)) { // member is admin
+'use strict';
 
 exports.kick_command = function(command, input, message, adminrole) {
     if (adminrole != undefined) { // if "Sadbot Admin" exists

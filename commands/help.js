@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+'use strict';
+
 exports.help_general = function(command, input, Discord, message) { // general help command
     if (command === 'help' && input.length == 0) {
         const embed = new Discord.RichEmbed()

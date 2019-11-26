@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+'use strict';
+
 // helpme, sergei
 const developers = ['580941857530576898', '513874030412169216'];
 

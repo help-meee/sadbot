@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+'use strict';
+
 const Sequelize = require('sequelize');
 
 exports.Tags = {
@@ -27,16 +29,3 @@ exports.Tags = {
 		allowNull: false,
 	},
 };
-
-exports.ServerSettings = {
-	guild_id: {
-		type: Sequelize.STRING,
-		unique: true,
-		allowNull: false
-	},
-	prefix: {
-		type: Sequelize.STRING,
-		default: '*',
-		allowNull: false
-	}
-}
