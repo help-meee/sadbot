@@ -78,7 +78,7 @@ client.on('message', message => {
 
     // if it was a ping to the bot
     if (message.content === '<@646581444637884435>') {
-        message.channel.send('do `*help` to start :c')
+        message.channel.send('do `*help` to start :c');
     }
 
     // split up UIN into usable chunks
