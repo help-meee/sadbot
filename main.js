@@ -38,6 +38,7 @@ const Sequelize = require('sequelize');
 const HelpCommands = require('./commands/help.js');
 const DebugCommands = require('./commands/debug.js');
 const ModerationCommands = require('./commands/moderation.js')
+const RedditCommands = require('./backend/reddit');
 
 const DatabaseModels = require('./database_models');
 
@@ -108,6 +109,8 @@ client.on('message', message => {
 
         ModerationCommands.kick_command(command, input, message, adminrole);
         ModerationCommands.ban_command(command, input, message, adminrole);
+
+        RedditCommands.sadcat(command, message, Discord);
     }
 });
 

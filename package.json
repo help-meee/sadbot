@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/help-meee/sadbot/issues"
   },
-  "homepage": "https://github.com/help-meee/sadbot#readme"
+  "homepage": "https://github.com/help-meee/sadbot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "https": "^1.0.0",
+    "simple-get": "^3.1.0"
+  }
 }
