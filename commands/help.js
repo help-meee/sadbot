@@ -25,6 +25,7 @@ exports.help_general = function(command, input, Discord, message) { // general h
             .addField(`*ping`, 'Bot replies pong', true)
             .addField('*help', 'Gives this screen', true)
             .addField('Moderation', '*help moderation', true)
+            .addField('*sadcat', 'Grabs you a sadcat from Reddit', true)
             .setTimestamp()
             .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
         message.channel.send(embed);
@@ -78,6 +79,18 @@ exports.help_per_command = function(command, input, Discord, message) { // help 
                 .setTitle('Sadbot User Manual - Ban')
                 .addField('Usage', '*ban <@user> [days of messages to delete] [reason]')
                 .addField('Description', 'Ban a user. There are 2 optional arguments behind the user mention: days and reason. The "days" option is how many days of messages to delete, and it defaults to 0. The reason argument is more self-explanitory. To trigger the reason argument, however, you must include a "days" argument (which can be 0). **Like all other moderation commands, the caller must have the "Sadbot Admin" role.**')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+
+        if (input[0] === 'sadcat') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Sadcat')
+                .addField('Usage', '*sadcat')
+                .addField('Description', 'Grabs you a random post from /r/sadcats. On the off chance the bot says there was an error, just do the command again. The post was likely not an image, or was nsfw, etc.')
                 .setTimestamp()
                 .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
             message.channel.send(embed);
