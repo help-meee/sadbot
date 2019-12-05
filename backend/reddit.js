@@ -51,7 +51,7 @@ exports.sadcat = function(command, message, Discord) {
           .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
           .setAuthor(`u/${data.author} on r/sadcats`, 'http://www.vectorico.com/download/social_media/Reddit-Icon.png', 'https://reddit.com/r/sadcats')
           .setTitle(data.title)
-          .setURL('https://reddit.com/' + data.permalink)
+          .setURL('https://reddit.com' + data.permalink)
           .setImage(data.url)
           .setTimestamp()
           .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
