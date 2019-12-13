@@ -106,9 +106,11 @@ client.on('message', message => {
         HelpCommands.help_general(command, input, Discord, message);
         HelpCommands.help_moderation(command, input, Discord, message);
         HelpCommands.help_per_command(command, input, Discord, message);
+        HelpCommands.version(command, Discord, message);
 
         ModerationCommands.kick_command(command, input, message, adminrole);
         ModerationCommands.ban_command(command, input, message, adminrole);
+        ModerationCommands.slowmode(command, input, message, adminrole)
 
         RedditCommands.sadcat(command, message, Discord);
     }

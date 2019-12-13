@@ -14,6 +14,8 @@
 
 'use strict';
 
+const moment = require('moment');
+
 exports.kick_command = function(command, input, message, adminrole) {
     if (adminrole != undefined) { // if "Sadbot Admin" exists
         if (message.member.roles.has(adminrole.id)) {
@@ -95,6 +97,59 @@ exports.ban_command = function(command, input, message, adminrole) {
                     }
                 } else {
                     message.reply('pls mention a user to ban ;('); // no user to kick
+                }
+            }
+        }
+    }
+}
+
+function getSeconds(str) { // for the slowmode function
+    var output = 0;
+    var hours = str.match(/(\d+)\s*h/);
+    var minutes = str.match(/(\d+)\s*m/);
+    var seconds = str.match(/(\d+)\s*s/);
+    if (hours) { output += parseInt(hours[1])*3600; }
+    if (minutes) { output += parseInt(minutes[1])*60; }
+    if (seconds) { output += parseInt(seconds[1]); }
+    return output;
+}
+
+
+
+
+
+exports.slowmode = function(command, input, message, adminrole) {
+    if (adminrole != undefined) { // if "Sadbot Admin" role exists
+        if (message.member.roles.has(adminrole.id)) { // if user of command has "Sadbot Admin" role
+            if (command === 'slowmode') {
+
+                let is_valid = false; // if the slowmode timer is valid
+                let failure_reason = 'pls use a number of seconds or off/non ;-( (do *help slowmode for clarification)';
+                let full_input = input.join(' ');
+                let parsed_input;
+
+                if (!isNaN(full_input.trim())) {
+                    parsed_input = Number(full_input.trim());
+                } else {
+                    parsed_input = getSeconds(full_input);
+                }
+
+                if (parsed_input != 0) { // it's a number
+                    if (parsed_input >= 0 && parsed_input <= 21600) { // between 0 and 120
+                        message.channel.setRateLimitPerUser(parsed_input);
+                        is_valid = true;
+                        message.reply(`slowmode is now ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')}`);
+                    } else {
+                        failure_reason = `the time ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')} is not in range of 0 seconds to 6 hours, im sorry...`
+                    }
+                } else if (full_input === 'off' || full_input === 'none' || full_input === '0' || full_input === '0s' || full_input === '0m' || full_input === '0h') {
+                    message.channel.setRateLimitPerUser(0);
+                    message.reply('okay slowmode is off :c');
+                    is_valid = true;
+                }
+
+                if (!is_valid) {
+                    message.reply(failure_reason);
                 }
             }
         }

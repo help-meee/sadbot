@@ -38,4 +38,4 @@ Lists all entries in the table `Tags`. For each entry, the value of `name` is li
 ### *§db-delete \<entry name\>*
 Removes an entry from the table `Tags`. The entry is selected by entry name, which corresponds to `name`. If no tag has the `name` given, the bot will return "That tag did not exist."
 
-> version PRE-INDEV
+> Last updated version PRE-INDEV

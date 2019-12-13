@@ -18,6 +18,8 @@
 const developers = ['580941857530576898', '513874030412169216'];
 
 exports.ping_command = function(command, message) {
+    if (!developers.includes(message.author.id)) return; // dev-only command
+    
     if (command === 'ping') {
         message.channel.send(`${message.author.toString()}, pong!`);
     }

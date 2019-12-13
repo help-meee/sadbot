@@ -14,6 +14,9 @@
 
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
 exports.help_general = function(command, input, Discord, message) { // general help command
     if (command === 'help' && input.length == 0) {
         const embed = new Discord.RichEmbed()
@@ -22,10 +25,11 @@ exports.help_general = function(command, input, Discord, message) { // general h
             .setTitle('Sadbot User Manual')
             .setDescription('Sadbot: a general purpose bot, filled to the brim with sadcats. Guaranteed to make you cry on every use.')
             .addField('**Prefix is \***', 'For example: \*command')
-            .addField(`*ping`, 'Bot replies pong', true)
-            .addField('*help', 'Gives this screen', true)
-            .addField('Moderation', '*help moderation', true)
-            .addField('*sadcat', 'Grabs you a sadcat from Reddit', true)
+            .addField(`*ping`, 'Bot replies pong')
+            .addField('*help', 'Gives this screen')
+            .addField('*version', 'Get version info')
+            .addField('Moderation', '*help moderation')
+            .addField('*sadcat', 'Grabs you a sadcat from Reddit')
             .setTimestamp()
             .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
         message.channel.send(embed);
@@ -38,8 +42,9 @@ exports.help_moderation = function(command, input, Discord, message) { // help o
             .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
             .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
             .setTitle('Sadbot User Manual - Moderation')
-            .addField('*kick <@user>', 'A simple command to kick a user', true)
-            .addField('*ban <@user> [days] [reason]', 'A less simple command to ban a user', true)
+            .addField('*kick <@user>', 'A simple command to kick a user')
+            .addField('*ban <@user> [days] [reason]', 'A less simple command to ban a user')
+            .addField('*slowmode <on/off/[time]>', 'Set the slowmode on a channel with more precision')
             .setTimestamp()
             .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
         message.channel.send(embed);
@@ -95,5 +100,47 @@ exports.help_per_command = function(command, input, Discord, message) { // help 
                 .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
             message.channel.send(embed);
         }
+
+        if (input[0] === 'slowmode') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Slowmode')
+                .addField('Usage', '*slowmode <off/none/[time in seconds]/[time in format of 2h, 3m, 16s]>')
+                .addField('Description', 'Changes the slowmode on a channel. The argument has a few ways of being written. The first is none or off, which disables slowmode. Second is simply a number of seconds. The third is used like so: 6h, 2m, 1m 15s. The maximum slowmode is 6 hours and the minimum is 0.')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+    }
+}
+
+exports.version = function(command, Discord, message) {
+    if (command === 'version') {
+        var filepath = path.join(__dirname, '../VERSION');
+
+        fs.readFile(filepath, {encoding: 'utf-8'}, (err, data) => {
+            if (!err) {
+                const embed = new Discord.RichEmbed()
+                    .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                    .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                    .setTitle('Sadbot Info')
+                    .addField('<:sadbot:654806690641739777> Sadbot Version', data)
+                    .addField(`<:node_js:654806232229740599> Node.js version`, process.version)
+                    .addField(`<:discord_js:654807709740171294> Discord.js version`, 'v11.5.1')
+                    .setTimestamp()
+                    .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+                message.channel.send(embed);
+            } else {
+                const embed = new Discord.RichEmbed()
+                    .setColor('#ff0000')
+                    .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                    .setTitle('sorry it didn work :c')
+                    .setDescription('pls try again')
+                    .setTimestamp()
+                    .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+                message.channel.send(embed);
+            }
+        });
     }
 }
