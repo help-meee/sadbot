@@ -29,7 +29,7 @@ exports.kick_command = function(command, input, message, adminrole) {
                          * @param user A mentioned user to kick
                          * @param reason An optional reason
                          */
-                        var kick_reason = input.slice(2).join(' ').trim();
+                        var kick_reason = input.slice(1).join(' ').trim();
                         member.kick(kick_reason).then(() => {
                             if (kick_reason != '') { // was there a kick reason given?
                                 message.channel.send(`;c ${message.author.toString()} had me kick ${user.tag} for *${kick_reason}*, rip`); // all went well, kick reason was given

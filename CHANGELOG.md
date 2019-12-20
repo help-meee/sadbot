@@ -33,3 +33,14 @@ Added a version and slowmode command!
 
 *Date: 12/12/19*
 *Contributor: helpme*
+
+## INDEV-1.3.0
+
+Fixed *kick reason bug, and removed *ping from all *help commands, added a *help version.
+
+-fixed *kick bug where first word of reason was cut off
+-removed *ping from *help
+-removed *help ping
+
+*Date: 12/20/19*
+*Contributor: helpme*

@@ -25,7 +25,6 @@ exports.help_general = function(command, input, Discord, message) { // general h
             .setTitle('Sadbot User Manual')
             .setDescription('Sadbot: a general purpose bot, filled to the brim with sadcats. Guaranteed to make you cry on every use.')
             .addField('**Prefix is \***', 'For example: \*command')
-            .addField(`*ping`, 'Bot replies pong')
             .addField('*help', 'Gives this screen')
             .addField('*version', 'Get version info')
             .addField('Moderation', '*help moderation')
@@ -53,18 +52,6 @@ exports.help_moderation = function(command, input, Discord, message) { // help o
 
 exports.help_per_command = function(command, input, Discord, message) { // help per command, e.g. *help kick
     if (command === 'help') {
-        if (input[0] === 'ping') {
-            const embed = new Discord.RichEmbed()
-                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
-                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
-                .setTitle('Sadbot User Manual - Ping')
-                .addField('Usage', '*ping')
-                .addField('Description', 'Bot replies "pong" to you, mostly for debugging. However, I thought it would be fun to leave in to commands users can access.')
-                .setTimestamp()
-                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
-            message.channel.send(embed);
-        }
-        
         if (input[0] === 'kick') {
             const embed = new Discord.RichEmbed()
                 .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
@@ -108,6 +95,30 @@ exports.help_per_command = function(command, input, Discord, message) { // help 
                 .setTitle('Sadbot User Manual - Slowmode')
                 .addField('Usage', '*slowmode <off/none/[time in seconds]/[time in format of 2h, 3m, 16s]>')
                 .addField('Description', 'Changes the slowmode on a channel. The argument has a few ways of being written. The first is none or off, which disables slowmode. Second is simply a number of seconds. The third is used like so: 6h, 2m, 1m 15s. The maximum slowmode is 6 hours and the minimum is 0.')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+
+        if (input[0] === 'version') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Version')
+                .addField('Usage', '*version')
+                .addField('Description', 'Tells you the version of Sadbot, the JS version, and the Discord.js version it is using.')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+
+        if (input[0] === 'help') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Sadcat')
+                .addField('Usage', '*help [optional command or command section]')
+                .addField('Description', 'Gives a list of command sections without an argument, a list of commands in a section with the section provided, and a guide on how to use a command with a provided command.')
                 .setTimestamp()
                 .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
             message.channel.send(embed);
