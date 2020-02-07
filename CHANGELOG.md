@@ -44,3 +44,15 @@ Fixed *kick reason bug, and removed *ping from all *help commands, added a *help
 
 *Date: 12/20/19*
 *Contributor: helpme*
+
+## INDEV-1.4.0
+
+This update does a lot of big things, including making *help less awful, an *8ball command, a command for blurry cats, and completely reworking the moderation command system (you used to need an admin role, now it just checks your perms).
+
+-Added *8ball
+-Added `*blurrypictureofacat/*blurrycat/*blurry`
+-Reworked moderation commands to be based of user permissions
+-Reworked *help to be less confusing
+
+*Date: 2/6/20*
+*Contributor: helpme*
