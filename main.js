@@ -38,7 +38,8 @@ const Sequelize = require('sequelize');
 const HelpCommands = require('./commands/help.js');
 const DebugCommands = require('./commands/debug.js');
 const ModerationCommands = require('./commands/moderation.js')
-const RedditCommands = require('./backend/reddit');
+const RedditCommands = require('./commands/reddit');
+const FunCommands = require('./commands/fun');
 
 const DatabaseModels = require('./database_models');
 
@@ -105,14 +106,18 @@ client.on('message', message => {
 
         HelpCommands.help_general(command, input, Discord, message);
         HelpCommands.help_moderation(command, input, Discord, message);
+        HelpCommands.help_fun(command, input, Discord, message);
         HelpCommands.help_per_command(command, input, Discord, message);
         HelpCommands.version(command, Discord, message);
 
-        ModerationCommands.kick_command(command, input, message, adminrole);
+        ModerationCommands.kick_command(command, input, message, Discord);
         ModerationCommands.ban_command(command, input, message, adminrole);
         ModerationCommands.slowmode(command, input, message, adminrole)
 
         RedditCommands.sadcat(command, message, Discord);
+        RedditCommands.blurry_cat(command, message, Discord);
+
+        FunCommands.eight_ball(command, input, message, Discord);
     }
 });
 

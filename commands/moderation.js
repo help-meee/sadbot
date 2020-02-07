@@ -16,89 +16,92 @@
 
 const moment = require('moment');
 
-exports.kick_command = function(command, input, message, adminrole) {
-    if (adminrole != undefined) { // if "Sadbot Admin" exists
-        if (message.member.roles.has(adminrole.id)) {
-            if (command === 'kick') {
-                const user = message.mentions.users.first(); // get user object
-                if (user) { // if there is a user mentioned
-                    const member = message.guild.member(user); // get member object
-                    if (member) { // if the member is in the guild
-                        /**
-                         * @function *kick <@user> reason
-                         * @param user A mentioned user to kick
-                         * @param reason An optional reason
-                         */
-                        var kick_reason = input.slice(1).join(' ').trim();
-                        member.kick(kick_reason).then(() => {
-                            if (kick_reason != '') { // was there a kick reason given?
-                                message.channel.send(`;c ${message.author.toString()} had me kick ${user.tag} for *${kick_reason}*, rip`); // all went well, kick reason was given
+exports.kick_command = function(command, input, message) {
+
+    if (command === 'kick') {
+        if (message.member.hasPermission('KICK_MEMBERS')) { // if user has perms to ban people
+            const user = message.mentions.users.first(); // get user object
+            if (user) { // if there is a user mentioned
+                const member = message.guild.member(user); // get member object
+                if (member) { // if the member is in the guild
+                    /**
+                     * @function *kick <@user> reason
+                     * @param user A mentioned user to kick
+                     * @param reason An optional reason
+                     */
+                    var kick_reason = input.slice(1).join(' ').trim();
+                    member.kick(kick_reason).then(() => {
+                        if (kick_reason != '') { // was there a kick reason given?
+                            message.channel.send(`;c ${message.author.toString()} had me kick ${user.tag} for *${kick_reason}*, rip`); // all went well, kick reason was given
+                        } else {
+                            message.channel.send(`;c ${message.author.toString()} had me kick ${user.tag}, rip`); // if all went well, and no kick reason was given
+                        }
+                    }).catch(err => {
+                        // Error happened, most likely due to missing permissions or role hierarchy.
+                        message.reply('im sry i failed... i cant kick them... (the culprit is most likely missing permissions or role hierarchy).');
+                    })
+                } else {
+                    message.reply('the mentioned user is not in the server ;c'); // user is not in server, how are you gonna kick them
+                }
+            } else {
+                message.reply('pls mention a user to kick ;('); // no user to kick
+            }
+        } else {
+            message.reply('you dont have the perms to kick :c');
+        }
+    } 
+
+}
+
+exports.ban_command = function(command, input, message) {
+    
+    if (command === 'ban') {
+        if (message.member.hasPermission('BAN_MEMBERS')) { // if member has perms to ban people
+            const user = message.mentions.users.first(); // get user object
+            if (user) { // if there is a user mentioned
+                const member = message.guild.member(user); // get member object
+                if (member) { // if the member is in the guild
+                    /**
+                     * @function *ban <@user> days reason
+                     * @param user A mentioned user to kick
+                     * @param days How many days of messages to delete, optional, default 0
+                     * @param reason An optional reason
+                    **/
+                    
+                    let days = undefined;
+
+                    if (input.length > 1) { // means that, if the command was correctly done, there is a days amount
+                        if (!isNaN(input[1])) { // value is a number
+                            days = parseInt(input[1]);
+                        } else {
+                            message.channel.send('the command goes like this pwease ;c...\n> *ban <@user> <days (optional)> <reason (optional)>\nto put a reason, you need to write the amount of days of messages to delete (this can be 0)');
+                        }
+                    } else {
+                        days = 0;
+                    }
+                    
+                    if (days != undefined) { // make sure there is a days value to use
+                        
+                        var ban_reason = input.slice(2).join(' ').trim();
+                        member.ban({reason: ban_reason, days: days}).then(() => {
+                            if (ban_reason != '') { // was there a ban reason given?
+                                message.channel.send(`;c ${message.author.toString()} had me ban ${user.tag} for *${ban_reason}*, rip`); // all went well, kick reason was given
                             } else {
-                                message.channel.send(`;c ${message.author.toString()} had me kick ${user.tag}, rip`); // if all went well, and no kick reason was given
+                                message.channel.send(`;c ${message.author.toString()} had me ban ${user.tag}, rip`); // if all went well, and no kick reason was given
                             }
                         }).catch(err => {
                             // Error happened, most likely due to missing permissions or role hierarchy.
-                            message.reply('im sry i failed... i cant kick them... (the culprit is most likely missing permissions or role hierarchy).');
-                        })
-                    } else {
-                        message.reply('the mentioned user is not in the server ;c'); // user is not in server, how are you gonna kick them
+                            message.reply('im sowwy i failed... i cant ban them... (the culprit is most likely missing permissions or role hierarchy).');
+                        });
                     }
                 } else {
-                    message.reply('pls mention a user to kick ;('); // no user to kick
+                    message.reply('the mentioned user is not in the server ;c'); // user is not in server, how are you gonna kick them
                 }
+            } else {
+                message.reply('pls mention a user to ban ;('); // no user to kick
             }
-        }
-    }
-}
-
-exports.ban_command = function(command, input, message, adminrole) {
-    if (adminrole != undefined) { // if "Sadbot Admin" role exists
-        if (message.member.roles.has(adminrole.id)) {
-            if (command === 'ban') {
-                const user = message.mentions.users.first(); // get user object
-                if (user) { // if there is a user mentioned
-                    const member = message.guild.member(user); // get member object
-                    if (member) { // if the member is in the guild
-                        /**
-                         * @function *ban <@user> days reason
-                         * @param user A mentioned user to kick
-                         * @param days How many days of messages to delete, optional, default 0
-                         * @param reason An optional reason
-                        **/
-                        
-                        let days = undefined;
-
-                        if (input.length > 1) { // means that, if the command was correctly done, there is a days amount
-                            if (!isNaN(input[1])) { // value is a number
-                                days = parseInt(input[1]);
-                            } else {
-                                message.channel.send('the command goes like this pwease ;c...\n> *ban <@user> <days (optional)> <reason (optional)>\nto put a reason, you need to write the amount of days of messages to delete (this can be 0)');
-                            }
-                        } else {
-                            days = 0;
-                        }
-                        
-                        if (days != undefined) { // make sure there is a days value to use
-                            
-                            var ban_reason = input.slice(2).join(' ').trim();
-                            member.ban({reason: ban_reason, days: days}).then(() => {
-                                if (ban_reason != '') { // was there a ban reason given?
-                                    message.channel.send(`;c ${message.author.toString()} had me ban ${user.tag} for *${ban_reason}*, rip`); // all went well, kick reason was given
-                                } else {
-                                    message.channel.send(`;c ${message.author.toString()} had me ban ${user.tag}, rip`); // if all went well, and no kick reason was given
-                                }
-                            }).catch(err => {
-                                // Error happened, most likely due to missing permissions or role hierarchy.
-                                message.reply('im sowwy i failed... i cant ban them... (the culprit is most likely missing permissions or role hierarchy).');
-                            });
-                        }
-                    } else {
-                        message.reply('the mentioned user is not in the server ;c'); // user is not in server, how are you gonna kick them
-                    }
-                } else {
-                    message.reply('pls mention a user to ban ;('); // no user to kick
-                }
-            }
+        } else {
+            message.reply('you do not have perms to ban ppl ;-(');
         }
     }
 }
@@ -118,40 +121,42 @@ function getSeconds(str) { // for the slowmode function
 
 
 
-exports.slowmode = function(command, input, message, adminrole) {
-    if (adminrole != undefined) { // if "Sadbot Admin" role exists
-        if (message.member.roles.has(adminrole.id)) { // if user of command has "Sadbot Admin" role
-            if (command === 'slowmode') {
+exports.slowmode = function(command, input, message) {
+    
+    if (command === 'slowmode') {
+    
+        if (message.member.hasPermission('MANAGE_CHANNELS')) { // if user has perms to edit channel and set slowmode
 
-                let is_valid = false; // if the slowmode timer is valid
-                let failure_reason = 'pls use a number of seconds or off/non ;-( (do *help slowmode for clarification)';
-                let full_input = input.join(' ');
-                let parsed_input;
+            let is_valid = false; // if the slowmode timer is valid
+            let failure_reason = 'pls use a number of seconds or off/non ;-( (do *help slowmode for clarification)';
+            let full_input = input.join(' ');
+            let parsed_input;
 
-                if (!isNaN(full_input.trim())) {
-                    parsed_input = Number(full_input.trim());
-                } else {
-                    parsed_input = getSeconds(full_input);
-                }
-
-                if (parsed_input != 0) { // it's a number
-                    if (parsed_input >= 0 && parsed_input <= 21600) { // between 0 and 120
-                        message.channel.setRateLimitPerUser(parsed_input);
-                        is_valid = true;
-                        message.reply(`slowmode is now ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')}`);
-                    } else {
-                        failure_reason = `the time ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')} is not in range of 0 seconds to 6 hours, im sorry...`
-                    }
-                } else if (full_input === 'off' || full_input === 'none' || full_input === '0' || full_input === '0s' || full_input === '0m' || full_input === '0h') {
-                    message.channel.setRateLimitPerUser(0);
-                    message.reply('okay slowmode is off :c');
-                    is_valid = true;
-                }
-
-                if (!is_valid) {
-                    message.reply(failure_reason);
-                }
+            if (!isNaN(full_input.trim())) {
+                parsed_input = Number(full_input.trim());
+            } else {
+                parsed_input = getSeconds(full_input);
             }
+
+            if (parsed_input != 0) { // it's a number
+                if (parsed_input >= 0 && parsed_input <= 21600) { // between 0 and 120
+                    message.channel.setRateLimitPerUser(parsed_input);
+                    is_valid = true;
+                    message.reply(`slowmode is now ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')}`);
+                } else {
+                    failure_reason = `the time ${moment("2015-01-01").startOf('day').seconds(parsed_input).format('H:mm:ss')} is not in range of 0 seconds to 6 hours, im sorry...`
+                }
+            } else if (full_input === 'off' || full_input === 'none' || full_input === '0' || full_input === '0s' || full_input === '0m' || full_input === '0h') {
+                message.channel.setRateLimitPerUser(0);
+                message.reply('okay slowmode is off :c');
+                is_valid = true;
+            }
+
+            if (!is_valid) {
+                message.reply(failure_reason);
+            }
+        } else {
+            message.reply('yuo need the manage channel perm to do that ;c');
         }
     }
 }

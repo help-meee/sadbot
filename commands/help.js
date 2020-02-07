@@ -28,6 +28,7 @@ exports.help_general = function(command, input, Discord, message) { // general h
             .addField('*help', 'Gives this screen')
             .addField('*version', 'Get version info')
             .addField('Moderation', '*help moderation')
+            .addField('Fun', '*help fun')
             .addField('*sadcat', 'Grabs you a sadcat from Reddit')
             .setTimestamp()
             .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
@@ -44,6 +45,21 @@ exports.help_moderation = function(command, input, Discord, message) { // help o
             .addField('*kick <@user>', 'A simple command to kick a user')
             .addField('*ban <@user> [days] [reason]', 'A less simple command to ban a user')
             .addField('*slowmode <on/off/[time]>', 'Set the slowmode on a channel with more precision')
+            .setTimestamp()
+            .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+        message.channel.send(embed);
+    }
+}
+
+exports.help_fun = function(command, input, Discord, message) { // help on moderation section
+    if (command === 'help' && input[0] === 'fun') {
+        const embed = new Discord.RichEmbed()
+            .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+            .setTitle('Sadbot User Manual - Fun')
+            .addField('*sadcat', 'Makes you cry with a sadcat fresh from r/sadcats')
+            .addField('*8ball (question)', 'Questionable accuracy')
+            .addField('*blurry/*blurrycat/*blurrypictureofacat', 'Gives you a very blurry picture of a cat from r/blurrypicturesofcats')
             .setTimestamp()
             .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
         message.channel.send(embed);
@@ -119,6 +135,30 @@ exports.help_per_command = function(command, input, Discord, message) { // help 
                 .setTitle('Sadbot User Manual - Sadcat')
                 .addField('Usage', '*help [optional command or command section]')
                 .addField('Description', 'Gives a list of command sections without an argument, a list of commands in a section with the section provided, and a guide on how to use a command with a provided command.')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+
+        if (input[0] === '8ball') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Magic 8 ball')
+                .addField('Usage', '*8ball (question)')
+                .addField('Description', 'Gives a totally accurate 100% proven prediction of the future.*')
+                .setTimestamp()
+                .setFooter(`Requested by ${message.author.username} | *This is an outright lie lmao`, message.author.avatarURL);
+            message.channel.send(embed);
+        }
+
+        if (input[0] === 'blurry' || input[0] === 'blurrycat' || input[0] === 'blurrypictureofacat') {
+            const embed = new Discord.RichEmbed()
+                .setColor('#'+(Math.random()*0xFFFFFF<<0).toString(16))
+                .setAuthor('Sadbot by helpme#6529', 'https://i.imgur.com/l4eSfpf.png', 'https://discordapp.com/users/580941857530576898')
+                .setTitle('Sadbot User Manual - Blurry picture of a cat')
+                .addField('Usage', '*blurry/*blurrycat/*blurrypictureofacat')
+                .addField('Description', 'When the cat is not sad, it zoom. -ghandi probably')
                 .setTimestamp()
                 .setFooter(`Requested by ${message.author.username}`, message.author.avatarURL);
             message.channel.send(embed);
