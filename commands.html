@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/colors.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <title>Sadbot | Commands</title>
+  </head>
+  <body>
+    <!--Icons-->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark tertiary-bg-color">
+      <a class="navbar-brand" href="#">Sadbot</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Commands <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="development.html">Development</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/help-meee/sadbot">Github <i data-feather="github"></i></a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+    <!--Break between navbar and content-->
+    <br><br>
+    <!--Content-->
+    <h1 class="secondary-text-color text-center">Commands</h1>
+    <h2 class="text-center">List of chat commands, sorted by category</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col" hidden></div>
+            <div class="col">
+                <p>
+                    <b>Syntax explination</b><br>
+                    Here's an example command:<br>
+                    <kbd>*example/example2 (argument 1) [argument 2]</kbd><br>
+                    <kbd>*example/example2</kbd> is how the command is started, which includes one name (they are seperated by slashes) and a * before it.<br>
+                    <kbd>(argument 1)</kbd> is a required argument, this must be filled in.<br>
+                    <kbd>[argument 2]</kbd> this is not a required argument, and may be defaulted to something.<br>
+                    2 examples of this command's usage would be:<br>
+                    <kbd>*example foo bar</kbd><br>
+                    <kbd>*example2 foo</kbd><hr>
+                </p>
+            </div>
+            <div class="col" hidden></div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <!--Accordion menu-->
+    <div class="container">
+        <div class="accordion" id="commandsMenu">
+            
+            <!--Fun commands header-->
+            <div class="card bg-secondary">
+                <div class="card-header" id="funHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-outline-info btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseFun" aria-expanded="true" aria-controls="collapseFun">
+                            Fun commands
+                        </button>
+                    </h2>
+                </div>
+                <!--Fun commands collapsable-->
+                <div id="collapseFun" class="collapse" aria-labelledby="funHeading" data-parent="#commandsMenu">
+                    <div class="card-body">
+                        <p><kbd>*sadcat</kbd>: gets you a random sadcat from r/sadcats!</p><hr>
+                        <p><kbd>*blurry/blurrycat/blurrypictureofacat</kbd>: gets a very blurry cat from r/blurrypicturesofcats</p><hr>
+                        <p><kbd>*8ball (question)</kbd>: Accurate telling of the future. Probably... (not)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Moderation commands header-->
+            <div class="card bg-dark">
+                <div class="card-header" id="modHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-outline-primary btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod">
+                            Moderation commands
+                        </button>
+                    </h2>
+                </div>
+                <!--Moderation commands collapsable-->
+                <div id="collapseMod" class="collapse" aria-labelledby="modHeading" data-parent="#commandsMenu">
+                    <div class="card-body">
+                        <p><kbd>*kick (@user) [reason]</kbd>: kicks the mentioned user. If a reason is given, it will be shown in the bot's response and the audit log.</p><hr>
+                        <p><kbd>*ban (@user) [days of messages to delete, can be 0] [reason]</kbd>: bans the mentioned user. Keep in mind that to show a reason, you must first give the days of messages to delete (this can be 0.)</p><hr>
+                        <p><kbd>*slowmode (off/time in seconds/time in 0h 0m 0s format)</kbd>: sets the slowmode for a channel. This can be adjusted with more freedom than the time presets Discord gives you.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Boring commands header-->
+            <div class="card bg-secondary">
+                <div class="card-header" id="boringHeading">
+                    <h2 class="mb-0">
+                        <button class="btn btn-outline-info btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseBoring" aria-expanded="true" aria-controls="collapseBoring">
+                            Boring commands
+                        </button>
+                    </h2>
+                </div>
+                <!--Boring commands collapsable-->
+                <div id="collapseBoring" class="collapse" aria-labelledby="boringHeading" data-parent="#commandsMenu">
+                    <div class="card-body">
+                        <p><kbd>*help [section or command]</kbd>: Gives you a help menu, with sections and important commands. If an argument is given, it will list all commands in a given section, or go in detail about a given command.</p><hr>
+                        <p><kbd>*version</kbd>: Gives the bot version, node.js version, and discord.js version</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Icon setup code-->
+    <script>
+      feather.replace({ 'width': 16, 'height': 16 });
+    </script>
+    <!--Bootstrap js-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
